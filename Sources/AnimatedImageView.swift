@@ -67,8 +67,8 @@ public class AnimatedImageView: UIImageView {
                 return
             } else {
                 stopAnimating()
-                displayLink.remove(from: RunLoop.main(), forMode: runLoopMode.rawValue)
-                displayLink.add(to: RunLoop.main(), forMode: newValue.rawValue)
+                displayLink.remove(from: RunLoop.main, forMode: RunLoopMode(rawValue: runLoopMode.rawValue))
+                displayLink.add(to: RunLoop.main, forMode: RunLoopMode(rawValue: newValue.rawValue))
                 startAnimating()
             }
         }
@@ -85,7 +85,7 @@ public class AnimatedImageView: UIImageView {
     private lazy var displayLink: CADisplayLink = {
         self.displayLinkInitialized = true
         let displayLink = CADisplayLink(target: TargetProxy(target: self), selector: #selector(TargetProxy.onScreenUpdate))
-        displayLink.add(to: RunLoop.main(), forMode: self.runLoopMode.rawValue)
+        displayLink.add(to: RunLoop.main, forMode: RunLoopMode(rawValue: self.runLoopMode.rawValue))
         displayLink.isPaused = true
         return displayLink
     }()
